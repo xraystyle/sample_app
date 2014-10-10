@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
 
 
 
+
+	# Callbacks
+	before_save { self.email = email.downcase }
+
 end
