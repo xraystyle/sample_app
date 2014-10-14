@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 	#     			:confirmation => boolean
 
 	# Validations
-	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
 
 	validates :name, presence: true, length:  { maximum: 50 }
 
@@ -28,6 +28,6 @@ class User < ActiveRecord::Base
 
 
 	# Callbacks
-	before_save { self.email = email.downcase }
+	before_save { email.downcase! }
 
 end
