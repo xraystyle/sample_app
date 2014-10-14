@@ -20,4 +20,21 @@ describe "UserPages" do
 	
 
 
+
+	# Describe Profile Page -----------------------------------------------
+
+	describe "profile page" do
+		# make a user variable.
+		let(:user) { User.first }
+		before { visit user_path(user) }
+
+		it { should have_content user.name }
+		it { should have_content user.email }
+
+	end
+
+
+
+	# End Describe Profile Page -------------------------------------------
+
 end
