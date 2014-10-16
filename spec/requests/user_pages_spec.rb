@@ -1,4 +1,5 @@
 require 'spec_helper'
+require "factory_girl_rails"
 
 describe "UserPages" do
 
@@ -25,12 +26,12 @@ describe "UserPages" do
 
 	describe "profile page" do
 		# make a user variable.
-		let(:user) { User.first }
+		let(:user) { FactoryGirl.create(:user) }
 		before { visit user_path(user) }
 
 		it { should have_content user.name }
-		it { should have_content user.email }
-
+		it { should have_title user.name }
+		it { should have_xpath("//img[@alt=\"#{user.name}\"]") } 
 	end
 
 
