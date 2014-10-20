@@ -17,6 +17,15 @@ describe User do
 		it { should respond_to(:remember_token) }
 	end
 
+	describe 'remember tokens' do
+		
+		describe 'should not be blank' do
+			before { @user.save }
+			its(:remember_token) { should_not be_blank }
+		end
+		
+	end
+
 	describe "should be valid when created properly" do
 		it { should be_valid }
 	end

@@ -24,4 +24,38 @@ class SessionsController < ApplicationController
 		
 	end
 
+	
+
+
+
+	# private methods
+	private
+
+
+
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
