@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# lines marked with a 'custom' comment are defined in spec/support/authentication_helper.rb
+
 describe "Authentication" do
 
 	subject { page }
@@ -25,21 +27,16 @@ describe "Authentication" do
 
 		describe "with an invalid email address" do
 
-			before do
-			fill_in "Email",			with: "notmichael@example.com"
-			fill_in "Password",			with: user.password
-			click_button "Sign in"
-
-			end
+			before { signin_with_invalid_email(user) } # custom
 
 			describe "should not successfully sign in" do
 				it { should have_title('Sign In') }
-				it { should have_error_message("Invalid") } # custom matcher, spec/support/utilities.rb
+				it { should have_error_message("Invalid") } # custom
 			end
 
 			describe "after visiting another page" do
 				before { click_link "Home" }
-				it { should_not have_error_message("Invalid") }  # custom matcher, spec/support/utilities.rb
+				it { should_not have_error_message("Invalid") }  # custom
 			end
 			
 
@@ -47,27 +44,23 @@ describe "Authentication" do
 
 		describe 'with an invalid password' do
 			
-			before do
-				fill_in "Email",			with: user.email
-				fill_in "Password",			with: "notfoobar"
-				click_button "Sign in"
-			end
+			before { signin_with_invalid_password(user) } # custom
 
 			describe "should not successfully sign-in" do
 				it { should have_title('Sign In') }
-				it { should have_error_message("Invalid") } # custom matcher, spec/support/utilities.rb
+				it { should have_error_message("Invalid") } # custom
 			end
 
 			describe "after visiting another page" do
 				before { click_link "Home" }
-				it { should_not have_error_message("Invalid") } # custom matcher, spec/support/utilities.rb
+				it { should_not have_error_message("Invalid") } # custom
 			end
 
 		end
 
 		describe 'with valid credentials' do
 			
-			before { valid_signin(user) } # Defined in spec/support/utilities.rb
+			before { valid_signin(user) } # custom
 				
 
 			describe 'should successfully sign in' do

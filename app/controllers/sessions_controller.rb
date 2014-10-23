@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
 
 	def create
 		
-		user = User.find_by(email: params[:session][:email].downcase)
-		if user && user.authenticate(params[:session][:password])
+		user = User.find_by(email: params[:email].downcase)
+		if user && user.authenticate(params[:password])
 			# log in the user and redirect to profile page.
 			# p user
 			# flash[:success] = "Login successful."
