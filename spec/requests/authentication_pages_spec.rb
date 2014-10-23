@@ -34,12 +34,12 @@ describe "Authentication" do
 
 			describe "should not successfully sign in" do
 				it { should have_title('Sign In') }
-				it { should have_selector('div.alert.alert-error') }
+				it { should have_error_message("Invalid") } # custom matcher, spec/support/utilities.rb
 			end
 
 			describe "after visiting another page" do
 				before { click_link "Home" }
-				it { should_not have_selector('div.alert.alert-error') }
+				it { should_not have_error_message("Invalid") }  # custom matcher, spec/support/utilities.rb
 			end
 			
 
@@ -55,12 +55,12 @@ describe "Authentication" do
 
 			describe "should not successfully sign-in" do
 				it { should have_title('Sign In') }
-				it { should have_selector('div.alert.alert-error') }
+				it { should have_error_message("Invalid") } # custom matcher, spec/support/utilities.rb
 			end
 
 			describe "after visiting another page" do
 				before { click_link "Home" }
-				it { should_not have_selector('div.alert.alert-error') }
+				it { should_not have_error_message("Invalid") } # custom matcher, spec/support/utilities.rb
 			end
 
 		end
@@ -68,9 +68,7 @@ describe "Authentication" do
 		describe 'with valid credentials' do
 			
 			before do
-				fill_in "Email",			with: user.email.upcase
-				fill_in "Password",			with: user.password
-				click_button "Sign in"
+				valid_signin(user) # Defined in spec/support/utilities.rb
 			end		
 
 			describe 'should successfully sign in' do
