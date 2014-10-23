@@ -67,9 +67,8 @@ describe "Authentication" do
 
 		describe 'with valid credentials' do
 			
-			before do
-				valid_signin(user) # Defined in spec/support/utilities.rb
-			end		
+			before { valid_signin(user) } # Defined in spec/support/utilities.rb
+				
 
 			describe 'should successfully sign in' do
 				it { should have_title(user.name) }
