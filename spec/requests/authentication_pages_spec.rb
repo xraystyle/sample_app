@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-# lines marked with a 'custom' comment are defined in spec/support/authentication_helper.rb
+# lines marked with a 'custom' comment are defined in spec/support/authentication_helper.rb or utilities.rb
 
 describe "Authentication" do
 
