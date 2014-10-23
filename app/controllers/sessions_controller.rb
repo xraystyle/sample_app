@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
 		user = User.find_by(email: params[:session][:email].downcase)
 		if user && user.authenticate(params[:session][:password])
 			# log in the user and redirect to profile page.
+			# p user
+			# flash[:success] = "Login successful."
 			sign_in(user)
 			redirect_to user
 		else
@@ -21,7 +23,8 @@ class SessionsController < ApplicationController
 	end
 
 	def destroy
-		
+		sign_out
+		redirect_to root_url
 	end
 
 	

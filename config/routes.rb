@@ -7,7 +7,7 @@ SampleApp::Application.routes.draw do
 
 
   match '/signin',    to: 'sessions#new',           via: 'get'
-  match '/signout',   to: 'sessions#delete',        via: 'get'
+  match '/signout',   to: 'sessions#destroy',        via: 'delete'
   match '/signup',    to: 'users#new',              via: 'get'
   
   # static pages routes

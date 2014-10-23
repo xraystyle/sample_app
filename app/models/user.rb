@@ -45,11 +45,11 @@ class User < ActiveRecord::Base
 	# Private methods
 	private
 
-	def create_remember_token
+		def create_remember_token
 
-		self.remember_token = User.digest(User.new_remember_token)
-		
-	end
+			self.remember_token = User.digest(User.new_remember_token)
+			
+		end
 
 
 
