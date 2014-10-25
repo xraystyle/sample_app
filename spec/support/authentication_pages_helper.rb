@@ -1,12 +1,11 @@
 # Helper methods for authentication_pages_spec to separate tests from implementation.
 
-def valid_signin(user)
+# def valid_signin(user)
+# 	fill_in "Email",	with: user.email
+# 	fill_in "Password",	with: user.password	
+# 	click_button "Sign in"
+# end
 
-	fill_in "Email",	with: user.email
-	fill_in "Password",	with: user.password	
-	click_button "Sign in"
-	
-end
 
 def signin_with_invalid_email(user)
 

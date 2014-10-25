@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+before_action :signed_in_user, only: [:edit, :update]
 
 	
 	def new
@@ -29,6 +30,26 @@ class UsersController < ApplicationController
 	end
 
 
+	def edit
+
+		@user = User.find(params[:id])
+		
+	end
+
+	def update
+
+		@user = User.find(params[:id])
+
+		if @user.update_attributes(user_params)
+			flash[:success] = "User info successfully updated"
+			redirect_to @user
+		else
+			render 'edit'
+		end
+		
+	end
+
+
 
 # Private methods -------------------------------
 
@@ -38,6 +59,13 @@ class UsersController < ApplicationController
 
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
 		
+	end
+
+
+	# before filters
+
+	def signed_in_user
+		redirect_to signin_url, notice: "Please sign in." unless signed_in?
 	end
 
 

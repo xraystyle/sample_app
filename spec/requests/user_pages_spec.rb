@@ -6,8 +6,6 @@ describe "UserPages" do
 
 	subject { page }
 
-
-
 	# Describe Signup Page -----------------------------------------------
 	describe "signup page" do
 		before { visit signup_path }
@@ -38,16 +36,8 @@ describe "UserPages" do
 
 		end
 
-
 		describe "with valid information" do
 			before { fill_in_valid_info } # custom
-
-			# before do
-			# 	fill_in "Name",						with: 	"Example User"
-			# 	fill_in "Email", 					with: 	"user@example.com"
-			# 	fill_in "Password", 				with: 	"foobar"
-			# 	fill_in "Confirmation", 			with: 	"foobar"
-			# end
 
 			it "should create a user" do
 				expect { click_button submit }.to change(User, :count).by(1)
@@ -65,8 +55,6 @@ describe "UserPages" do
 			end
 
 		end
-
-
 
 	end
 	
@@ -91,5 +79,85 @@ describe "UserPages" do
 
 
 	# End Describe Profile Page -------------------------------------------
+
+
+
+
+	# Describe user edit Page ---------------------------------------------
+
+	describe 'Edit user' do
+		
+		let(:user) { FactoryGirl.create(:user) }
+		
+		before do
+			sign_in(user)
+			visit edit_user_path(user)
+		end
+
+		describe 'page' do
+
+			it { should have_content("Update your profile") }
+			it { should have_title('Edit user') }
+			it { should have_link('change', href: "http://gravatar.com/emails") }
+			
+		end
+
+		describe "with invalid information" do
+
+			before { click_button("Save changes") }
+	
+			describe 'should produce an error' do
+				it { should have_error_message("The form contains") }
+			end
+			
+		end
+
+		describe 'with valid information' do
+
+			before { fill_in_name_change  } #custom
+			# FactoryGirl creates the user with the name "Michael Hartl."
+			# this method fills in "Test User as the new name."
+
+			describe 'should update the user' do
+				before { click_button "Save changes" }
+
+				it { should have_success_message("successfully updated") }
+				it { should have_title("Test User") }
+				it { should have_link('Sign out', href: signout_path) }
+				it { should_not have_title("Michael Hartl") }
+				specify { expect(user.reload.name).to eq "Test User" }
+				specify { expect(user.reload.name).not_to eq "Michael Hartl" }
+
+			end
+
+		end
+
+	end
+
+
+
+
+
+
+
+
+
+
+
+
+	# End Describe user edit Page -----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end

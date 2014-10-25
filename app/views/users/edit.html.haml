@@ -1,0 +1,10 @@
+-provide(:title, 'Edit user')
+%h1 Update your profile
+
+.row
+	.span6.offset3
+		= form_for(@user) do |f|
+			= render "user_form", f: f
+			= f.submit "Save changes"
+
+		!= "#{gravatar_for(@user)} #{link_to('change', "http://gravatar.com/emails")}"	
