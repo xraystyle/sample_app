@@ -39,6 +39,14 @@ module SessionsHelper
 		# puts "Current user is \"#{@current_user.name}\""
 	end
 
+
+	def current_user?(user)
+
+		user == current_user
+		
+	end
+
+
 	def sign_out
 		current_user.update_attribute(:remember_token, User.digest(User.new_remember_token))
 		cookies.delete(:remember_token)
