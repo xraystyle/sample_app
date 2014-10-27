@@ -8,18 +8,14 @@ class SessionsController < ApplicationController
 		
 		user = User.find_by(email: params[:email].downcase)
 		if user && user.authenticate(params[:password])
-			# log in the user and redirect to profile page.
-			# p user
-			# flash[:success] = "Login successful."
 			sign_in(user)
-			redirect_to user
+			redirect_back_or user
 		else
 			# back to login, display errors.
 			flash.now[:error] = "Invalid username/password."
 			render 'new'
 		end
 
-		# render 'new'
 	end
 
 	def destroy
