@@ -15,6 +15,7 @@ describe User do
 		it { should respond_to(:password_confirmation) }
 		it { should respond_to(:authenticate) }
 		it { should respond_to(:remember_token) }
+		it { should respond_to(:admin) }
 	end
 
 	describe 'remember tokens' do
@@ -26,8 +27,18 @@ describe User do
 		
 	end
 
-	describe "should be valid when created properly" do
+	describe "should be valid when created properly as a standard user" do
 		it { should be_valid }
+		it { should_not be_admin }
+	end
+
+	describe 'with admin attribute set to true' do
+		before do
+			@user.save!
+			@user.toggle!(:admin)
+		end
+
+		it { should be_admin }
 	end
 		
 
