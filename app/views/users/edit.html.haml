@@ -7,4 +7,4 @@
 			= render "user_form", f: f
 			= f.submit "Save changes"
 
-		!= "#{gravatar_for(@user)} #{link_to('change', "http://gravatar.com/emails")}"	
+		!= "#{gravatar_for(@user)} #{link_to('change', "http://gravatar.com/emails", target: '_blank')}"	
