@@ -84,6 +84,7 @@ describe "UserPages" do
 	describe "signup" do
 		before { visit signup_path }
 		let(:submit) { "Create my account" }
+		let(:user) { FactoryGirl.create(:user) }
 
 
 		describe "with invalid information" do
@@ -120,6 +121,36 @@ describe "UserPages" do
 			end
 
 		end
+
+		describe 'when already logged in' do
+			before do
+				sign_in(user, no_capybara: true)
+				get signup_path
+			end
+
+			specify { expect(response).to redirect_to(root_url) }
+			
+		end
+
+		describe 'POSTing to the create action while logged in' do
+			let(:params) do
+				{ user: { name: "test", email: "testuser801@example.com", password: "foobar", password_confirmation: "foobar"} }
+			end
+
+			before do
+				sign_in(user, no_capybara: true)
+				post users_path(params)
+			end
+
+			specify { expect(response).to redirect_to(root_url) }
+
+		end
+
+
+
+
+
+
 
 	end
 	

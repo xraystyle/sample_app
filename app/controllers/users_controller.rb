@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 before_action :signed_in_user, only: [:edit, :update, :index]
 before_action :correct_user, only: [:edit, :update]
 before_action :admin_user, only: :destroy
+before_action :not_for_current_users, only: [:new, :create]
 
 
 	def index
@@ -86,6 +87,11 @@ before_action :admin_user, only: :destroy
 		end
 		
 	end
+
+	def not_for_current_users
+		redirect_to root_url if signed_in?
+	end
+
 
 	def correct_user
 		@user = User.find(params[:id])
