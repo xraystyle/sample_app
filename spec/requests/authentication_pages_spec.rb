@@ -109,6 +109,19 @@ describe "Authentication" do
 			
 		end
 
+		describe 'as admin user' do
+
+			let(:new_admin) { FactoryGirl.create(:admin) }
+			before { sign_in(new_admin, no_capybara: true) }
+
+			describe "submitting a DELETE request to the users#destroy action for it's own account" do
+				before { delete user_path(new_admin) }
+				specify { expect(new_admin.reload).to eq new_admin }
+			end
+			
+		end
+
+
 		describe 'for non-signed-in users' do
 			let(:user) { FactoryGirl.create(:user) }
 
@@ -125,7 +138,20 @@ describe "Authentication" do
 					it 'should render the desired protected page' do
 						expect(page).to have_title("Edit user") 
 					end
-					
+						
+					describe 'when signing in again' do
+						before do
+							click_link('Sign out')
+							sign_in(user)
+						end
+
+						it "should render the default profile page" do
+							expect(page).to have_title(user.name)							
+						end
+						
+					end
+
+
 				end
 
 				

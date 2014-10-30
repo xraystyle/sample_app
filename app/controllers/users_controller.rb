@@ -57,8 +57,16 @@ before_action :not_for_current_users, only: [:new, :create]
 	end
 
 	def destroy
+		
+		# User.find(params[:id]).destroy
+		@user_to_delete = User.find(params[:id])
 
-		User.find(params[:id]).destroy
+		if @user_to_delete.id == current_user.id 
+			# Don't delete yourself.
+			redirect_to users_path and return
+		end
+
+		@user_to_delete.destroy
 		flash[:success] = "User deleted."
 		redirect_to users_url
 		

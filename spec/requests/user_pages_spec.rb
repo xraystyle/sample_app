@@ -55,7 +55,6 @@ describe "UserPages" do
 						click_link('delete', match: :first)
 					end.to change(User, :count).by(-1)	
 				end
-
 				
 			end
 			
@@ -68,7 +67,7 @@ describe "UserPages" do
 
 
 
-	# End escribe Index Page --------------------------------------------
+	# End describe Index Page --------------------------------------------
 
 
 	# Describe Signup Page -----------------------------------------------
