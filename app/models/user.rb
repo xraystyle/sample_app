@@ -23,6 +23,11 @@ class User < ActiveRecord::Base
 	validates :password, length: { minimum: 6 }
 	
 
+	# associations
+	has_many :microposts
+
+
+
 
 	# Class methods
 	def User.new_remember_token
