@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 	
 
 	# associations
-	has_many :microposts
+	has_many :microposts, dependent: :destroy
 
 
 
