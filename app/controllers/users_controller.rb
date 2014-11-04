@@ -18,6 +18,7 @@ before_action :not_for_current_users, only: [:new, :create]
 
 	def show
 		@user = User.find(params[:id])
+		@microposts = @user.microposts.paginate(page: params[:page])
 	end
 
 
