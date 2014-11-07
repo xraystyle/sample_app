@@ -21,13 +21,33 @@ describe "Static pages" do
 	# Describe Home Page -------------------------------------------------
 	
 	describe "Home page" do
-		before { visit root_path }
 
-		let(:heading)		{ 'Sample App' }
-		let(:page_title)	{ '' }
+		let(:user) { FactoryGirl.create(:user) }
 
-		it_should_behave_like "all static pages"
-		it { should_not have_title('| Home') }
+		describe 'for logged out users' do
+
+			before { visit root_path }
+
+			let(:heading)		{ 'Sample App' }
+			let(:page_title)	{ '' }
+
+			it_should_behave_like "all static pages"
+			it { should_not have_title('| Home') }
+			it { should have_css('div.center.hero-unit') }
+
+		end
+
+		describe 'for logged in users' do
+			before do
+				sign_in(user)
+				visit root_path
+			end
+			
+			it { should_not have_css('div.center.hero-unit') }
+			it { should have_field('micropost_content') }
+			
+		end
+
 
 	end
 
