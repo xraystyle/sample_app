@@ -182,6 +182,8 @@ describe "Authentication" do
 				
 			end
 
+
+
 			describe 'in the microposts controller' do
 
 
@@ -198,8 +200,12 @@ describe "Authentication" do
 
 
 			end			
-			
+
+
 		end
+
+
+
 
 		describe 'as the wrong user' do
 			let(:user) { FactoryGirl.create(:user) }
