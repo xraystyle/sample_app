@@ -7,7 +7,7 @@ describe User do
 
 	subject { @user }
 
-	describe "should respond to these methods" do
+	describe "should respond to these methods:" do
 		it { should respond_to(:name) }
 		it { should respond_to(:email) }
 		it { should respond_to(:password_digest) }
@@ -17,6 +17,7 @@ describe User do
 		it { should respond_to(:remember_token) }
 		it { should respond_to(:admin) }
 		it { should respond_to(:microposts) }
+		it { should respond_to(:feed) }
 
 	end
 
@@ -43,7 +44,6 @@ describe User do
 		it { should be_admin }
 	end
 		
-
 
 	describe "when name is not present" do
 		before { @user.name = " " }
@@ -167,6 +167,17 @@ describe User do
 			microposts.each do |post|
 				expect(Micropost.where(id: post.id)).to be_empty
 			end
+
+		end
+
+		describe 'status' do
+			let(:unfollowed_post) do
+				FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+			end
+
+			its(:feed) { should include(newer_micropost) }
+			its(:feed) { should include(older_micropost) }
+			its(:feed) { should_not include(unfollowed_post) }
 
 		end
 

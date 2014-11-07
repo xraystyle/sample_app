@@ -41,6 +41,13 @@ class User < ActiveRecord::Base
 
 
 
+	# instance methods
+
+	def feed
+		Micropost.where("user_id = ?", id)
+	end
+
+
 
 	# Callbacks
 	before_save { email.downcase! }
