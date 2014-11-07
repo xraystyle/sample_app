@@ -181,6 +181,23 @@ describe "Authentication" do
 
 				
 			end
+
+			describe 'in the microposts controller' do
+
+
+				describe 'submitting to the create action do' do
+					before { post microposts_path }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+
+				
+				describe 'submitting to the destroy action' do
+					before { delete micropost_path(FactoryGirl.create(:micropost)) }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+
+
+			end			
 			
 		end
 
@@ -206,6 +223,7 @@ describe "Authentication" do
 
 			
 		end
+
 		
 	end
 

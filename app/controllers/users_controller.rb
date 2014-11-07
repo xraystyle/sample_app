@@ -88,14 +88,7 @@ before_action :not_for_current_users, only: [:new, :create]
 
 	# before filters
 
-	def signed_in_user
 
-		unless signed_in?
-			store_location
-			redirect_to signin_url, notice: "Please sign in." unless signed_in?
-		end
-		
-	end
 
 	def not_for_current_users
 		redirect_to root_url if signed_in?
