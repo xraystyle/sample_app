@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Static pages" do
+describe "Static pages:" do
 
 	let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 
@@ -39,10 +39,19 @@ describe "Static pages" do
 
 		describe 'for logged in users' do
 			before do
+				FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+				FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
 				sign_in(user)
 				visit root_path
 			end
 			
+			it "should render the user's feed" do
+				user.feed.each do |item|
+					expect(page).to have_selector("li##{item.id}", text: item.content)
+				end
+			end
+
+
 			it { should_not have_css('div.center.hero-unit') }
 			it { should have_field('micropost_content') }
 			

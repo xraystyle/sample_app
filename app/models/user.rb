@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
 	# instance methods
 
 	def feed
-		Micropost.where("user_id = ?", id)
+		Micropost.where("user_id = ?", id) # could also be just 'mircroposts'. 
 	end
 
 
