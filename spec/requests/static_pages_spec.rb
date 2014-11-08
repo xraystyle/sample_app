@@ -57,11 +57,7 @@ describe "Static pages:" do
 				end
 			end
 
-			it "should show the number of microposts belonging to the current user" do
-				expect(page).to have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}")
-			end
-
-
+			it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
 			it { should_not have_css('div.center.hero-unit') }
 			it { should have_field('micropost_content') }
 			
