@@ -39,16 +39,26 @@ describe "Static pages:" do
 
 		describe 'for logged in users' do
 			before do
-				FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+
+				rand(0..8) do # make a random number of posts.
+					FactoryGirl.create(:micropost, user: user, content: Faker::Lorem.sentence(5))
+				end
+				# make two posts with known/expected content.
+				FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
 				FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
 				sign_in(user)
 				visit root_path
+
 			end
 			
 			it "should render the user's feed" do
 				user.feed.each do |item|
 					expect(page).to have_selector("li##{item.id}", text: item.content)
 				end
+			end
+
+			it "should show the number of microposts belonging to the current user" do
+				expect(page).to have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}")
 			end
 
 
