@@ -40,13 +40,12 @@ describe "Static pages:" do
 		describe 'for logged in users' do
 			before do
 
-				rand(30..40).times do # make a random number of posts.
+				rand(15..40).times do # make a random number of posts.
 					FactoryGirl.create(:micropost, user: user, content: Faker::Lorem.sentence(5))
 				end
 				# make two posts with known/expected content.
 				FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
 				FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
-				puts user.microposts.count
 				sign_in(user)
 				visit root_path
 
@@ -64,13 +63,20 @@ describe "Static pages:" do
 
 			it "should have no more than 30 microposts per page" do
 				within("ol.microposts") do
-					if user.microposts.count > 30
-						page.should have_css("li", count: 30)
+					if feed.count > 30 
+						page.should have_css("li", count: 30) # no more than 30 per page.
 					else
+						# if less than 30, total number of posts should match displayed.
 						page.should have_css("li", count: user.microposts.count)
 					end
 				end
-				page.should have_selector("div.pagination") 
+
+				if feed.count > 30 # more than 30 items should paginate.
+					page.should have_selector("div.pagination")
+				else
+					page.should_not have_selector("div.pagination")
+				end
+
 			end
 
 			it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
