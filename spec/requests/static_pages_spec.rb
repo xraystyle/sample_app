@@ -38,51 +38,88 @@ describe "Static pages:" do
 		end
 
 		describe 'for logged in users' do
-			before do
 
-				rand(15..40).times do # make a random number of posts.
-					FactoryGirl.create(:micropost, user: user, content: Faker::Lorem.sentence(5))
+			describe 'with long feeds' do
+
+				before do
+
+					40.times do # make a random number of posts.
+						FactoryGirl.create(:micropost, user: user, content: Faker::Lorem.sentence(5))
+					end
+					# make two posts with known/expected content.
+					FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
+					FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+					sign_in(user)
+					visit root_path
+
 				end
-				# make two posts with known/expected content.
-				FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
-				FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
-				sign_in(user)
-				visit root_path
+				
+				let(:feed) { user.feed }
 
+				it "should render the user's feed" do
+					feed.each_with_index do |item, index|
+						if index <= 29
+							expect(page).to have_selector("li##{item.id}", text: item.content)
+						end
+					end
+				end
+
+				it "should have 30 microposts per page" do
+					
+					within("ol.microposts") do
+							page.should have_css("li", count: 30) # 30 per page, paginate gem default.
+					end
+
+				end
+
+				it { should have_selector("div.pagination") }
+				it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
+				it { should_not have_css('div.center.hero-unit') }
+				it { should have_field('micropost_content') }
+				
 			end
-			
-			let(:feed) { user.feed }
 
-			it "should render the user's feed" do
-				feed.each_with_index do |item, index|
-					if index <= 29
+			describe 'with short feeds' do
+
+				before do
+
+					5.times do # make a random number of posts.
+						FactoryGirl.create(:micropost, user: user, content: Faker::Lorem.sentence(5))
+					end
+					# make two posts with known/expected content.
+					FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
+					FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+					sign_in(user)
+					visit root_path
+
+				end
+				
+				let(:feed) { user.feed }	
+
+				it "should render the user's feed" do
+					feed.each do |item|
 						expect(page).to have_selector("li##{item.id}", text: item.content)
 					end
 				end
-			end
 
-			it "should have no more than 30 microposts per page" do
-				within("ol.microposts") do
-					if feed.count > 30 
-						page.should have_css("li", count: 30) # no more than 30 per page.
-					else
-						# if less than 30, total number of posts should match displayed.
-						page.should have_css("li", count: user.microposts.count)
+				it "should have less than 30 microposts per page" do
+					
+					within("ol.microposts") do
+							page.should have_css("li", count: feed.count) # no more than 30 per page.
 					end
+
 				end
 
-				if feed.count > 30 # more than 30 items should paginate.
-					page.should have_selector("div.pagination")
-				else
-					page.should_not have_selector("div.pagination")
-				end
+
+				it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
+				it { should_not have_css('div.center.hero-unit') }
+				it { should have_field('micropost_content') }
+
+
 
 			end
 
-			it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
-			it { should_not have_css('div.center.hero-unit') }
-			it { should have_field('micropost_content') }
-			
+
 		end
 
 
