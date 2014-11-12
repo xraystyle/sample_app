@@ -23,6 +23,7 @@ describe "Static pages:" do
 	describe "Home page" do
 
 		let(:user) { FactoryGirl.create(:user) }
+		let(:other_user) { FactoryGirl.create(:user) }
 
 		describe 'for logged out users' do
 
@@ -108,6 +109,17 @@ describe "Static pages:" do
 							page.should have_css("li", count: feed.count) # no more than 30 per page.
 					end
 
+				end
+
+				describe 'follower/following counts' do
+					before do
+						other_user.follow!(user)
+						visit root_path
+					end
+
+					it { should have_link("0 following", href: following_user_path(user)) }
+					it { should have_link("1 followers", href: followers_user_path(user)) }
+					
 				end
 
 

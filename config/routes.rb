@@ -1,5 +1,11 @@
 SampleApp::Application.routes.draw do
   
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
   # get "users/new"
   root 'static_pages#home'
   resources :users
