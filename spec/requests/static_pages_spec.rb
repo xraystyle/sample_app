@@ -114,6 +114,7 @@ describe "Static pages:" do
 				describe 'follower/following counts' do
 					before do
 						other_user.follow!(user)
+						puts user.followers
 						visit root_path
 					end
 
