@@ -179,6 +179,15 @@ describe "Authentication" do
 					it { should have_title('Sign In') }
 				end
 
+				describe "visiting the 'following' page" do
+					before { visit following_user_path(user) }
+					it { should have_title("Sign in") }
+				end
+
+				describe "visiting the 'followers' page" do
+					before { visit followers_user_path(user) }
+					it { should have_title("Sign in") }
+				end
 				
 			end
 
