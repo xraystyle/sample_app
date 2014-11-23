@@ -138,6 +138,15 @@ describe User do
 		end
 	end
 
+	describe "when username format is invalid" do
+		it "should be invalid" do
+			usernames = ["invalid user", "thisaddressiswaaaaytoogoddamnlong", "inv@lid+char%"]
+			usernames.each do |invalid_username|
+				@user.username = invalid_username
+				expect(@user).not_to be_valid
+			end
+		end
+	end
 
 	describe "when email format is valid" do
 		it "should be valid" do
@@ -149,6 +158,15 @@ describe User do
 		end
 	end
 
+	describe "when username format is valid" do
+		it "should be valid" do
+			usernames = %w[validname also_valid numb3rsrc00l under_score hy-phen-ate-d]
+			usernames.each do |valid_username|
+				@user.username = valid_username
+				expect(@user).to be_valid
+			end
+		end
+	end
 
 	describe "when email address is already taken" do
 		before do
