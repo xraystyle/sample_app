@@ -1,1 +1,16 @@
-Currently on section 11.3, Status Feed.
+Implement @ replies.
+
+Needed:
+
+Users will require a unique username.
+	
+	Users table will need a new column for the username, unique: true -- Added.
+	Add it to the signup/sign-in/account edit pages.
+	Add it to all the Factory Girl generators
+	Add to db:populate rake task
+
+Microposts model:
+	
+	Will need an in_reply_to column
+	including_replies scope is recommended.
+	
