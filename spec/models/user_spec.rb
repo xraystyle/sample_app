@@ -96,6 +96,11 @@ describe User do
 		it { should_not be_valid }
 	end
 
+	describe "when username is too long" do
+		before { @user.username = "a" * 21 }
+		it { should_not be_valid }
+	end	
+
 	describe "when password is not present" do
 		before do
 			@user = User.new(name: "Example User", email: "user@example.com", 

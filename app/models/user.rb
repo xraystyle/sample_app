@@ -14,13 +14,18 @@ class User < ActiveRecord::Base
 
 	# Validations
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
+	VALID_USERNAME_REGEX = /\A[a-z0-9\-_]+\z/i
 
 	validates :name, presence: true, length:  { maximum: 50 }
 
 	validates :email, presence: true, format: VALID_EMAIL_REGEX, uniqueness: { case_sensitive: false }
 
-	has_secure_password
+	validates :username, presence: true, format: VALID_USERNAME_REGEX, uniqueness: { case_sensitive: false }, length: { maximum: 20 }
+
 	validates :password, length: { minimum: 6 }
+	
+	has_secure_password
+	
 	
 
 	# associations
@@ -69,6 +74,7 @@ class User < ActiveRecord::Base
 
 	# Callbacks
 	before_save { email.downcase! }
+	before_save { username.downcase! }
 	before_create :create_remember_token
 
 
