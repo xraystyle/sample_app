@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 	# pending "add some examples to (or delete) #{__FILE__}"
-	before { @user = User.new(name: "Example User", email: "user@example.com",
+	before { @user = User.new(name: "Example User", username: "exampleusername", email: "user@example.com",
 								password: "foobar", password_confirmation: "foobar") }
 
 	subject { @user }
@@ -25,6 +25,7 @@ describe User do
 		it { should respond_to(:unfollow!) }
 		it { should respond_to(:reverse_relationships) }
 		it { should respond_to(:followers) }
+		it { should respond_to(:username) }
 
 
 	end
@@ -85,6 +86,10 @@ describe User do
 		it { should_not be_valid }
 	end
 
+	describe "when username is not present" do
+		before { @user.username = " " }
+		it { should_not be_valid }
+	end
 
 	describe "when email is not present" do
 		before { @user.email = " " }
@@ -149,6 +154,18 @@ describe User do
 		it { should_not be_valid }
 	end
 
+
+	describe "when username is already taken" do
+		before do
+			duplicate_user = @user.dup
+			duplicate_user.email = "different@example.com"
+			duplicate_user.username = @user.username.upcase
+			duplicate_user.save
+		end
+		it { should_not be_valid }
+	end	
+
+
 	describe "email address with mixed case" do
 		let(:mixed_case_email) { "UsEr@ExAmPlE.cOM" }
 
@@ -156,6 +173,17 @@ describe User do
 			@user.email = mixed_case_email
 			@user.save
 			expect(@user.reload.email).to eq mixed_case_email.downcase
+		end
+	end
+
+
+	describe "username with mixed case" do
+		let(:mixed_case_username) { "UsErNamEExAmPlE" }
+
+		it "should be saved as lowercase" do
+			@user.username = mixed_case_username
+			@user.save
+			expect(@user.reload.email).to eq mixed_case_username.downcase
 		end
 	end
 
