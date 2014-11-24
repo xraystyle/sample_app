@@ -61,6 +61,7 @@ describe "Static pages:" do
 					feed.each_with_index do |item, index|
 						if index <= 29
 							expect(page).to have_selector("li##{item.id}", text: item.content)
+							expect(page).to have_selector("span.username", text: item.user.username)
 						end
 					end
 				end
@@ -101,6 +102,7 @@ describe "Static pages:" do
 				it "should render the user's feed" do
 					feed.each do |item|
 						expect(page).to have_selector("li##{item.id}", text: item.content)
+						expect(page).to have_selector("span.username", text: item.user.username)
 					end
 				end
 
