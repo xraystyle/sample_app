@@ -11,7 +11,9 @@ Username format: a-z0-9, -, _, all lowercase.
 	Add it to all the Factory Girl generators --Done
 	Add to db:populate rake task --Done
 
-	Add it to the signup/sign-in/account edit pages. 
+	Add it to the signup/sign-in/account edit pages. --Done.
+	Also added to user profile page, and user list page. 
+	Still need usernames to appear next to posts in feed, which needs test coverage.
 
 Microposts model:
 	
