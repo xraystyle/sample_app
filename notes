@@ -16,7 +16,24 @@ Username format: a-z0-9, -, _, all lowercase.
 	Still need usernames to appear next to posts in feed, which needs test coverage.
 
 Microposts model:
+
+	Finding an @:
+	regex should check for start of string, '@' sign, then keep matching until an invalid username char is hit.
 	
 	Will need an in_reply_to column
 	including_replies scope is recommended.
+
+	!!! Multiple mentions per micropost are possible. Having a single in_reply_to column doesn't cut it.
+	A join table is needed, something like:
+
+	 MICROPOST_REPLIES_TABLE
+	-------------------------
+	 micropost_id | user_id
+	--------------|----------
+	       5      |    2
+	--------------|----------
+	       7      |    13 
+	--------------|----------
+	       7      |    9
+
 	
