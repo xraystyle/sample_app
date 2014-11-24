@@ -73,6 +73,7 @@ describe "Static pages:" do
 
 				end
 
+				it { should have_content(user.username) }
 				it { should have_selector("div.pagination") }
 				it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
 				it { should_not have_css('div.center.hero-unit') }
@@ -123,6 +124,7 @@ describe "Static pages:" do
 				end
 
 
+				it { should have_content(user.username) }
 				it { should have_selector("span", text: "#{user.microposts.count} #{"micropost".pluralize(user.microposts.count)}") }
 				it { should_not have_css('div.center.hero-unit') }
 				it { should have_field('micropost_content') }

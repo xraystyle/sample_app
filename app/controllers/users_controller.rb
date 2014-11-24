@@ -100,7 +100,7 @@ before_action :not_for_current_users, only: [:new, :create]
 
 	def user_params
 
-		params.require(:user).permit(:name, :email, :password, :password_confirmation)
+		params.require(:user).permit(:name, :username, :email, :password, :password_confirmation)
 		
 	end
 

@@ -170,6 +170,7 @@ describe "UserPages" do
 		before { visit user_path(user) }
 
 		it { should have_content user.name }
+		it { should have_content user.username }
 		it { should have_title user.name }
 		it { should have_xpath("//img[@alt=\"#{user.name}\"]") } 
 

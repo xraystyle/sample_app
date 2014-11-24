@@ -8,9 +8,10 @@ Username format: a-z0-9, -, _, all lowercase.
 	
 	Users table will need a new column for the username, unique: true -- Added.
 	-- currently modifying user spec tests for username functionality. -- Done.
-	Add it to the signup/sign-in/account edit pages.
-	Add it to all the Factory Girl generators
-	Add to db:populate rake task
+	Add it to all the Factory Girl generators --Done
+	Add to db:populate rake task --Done
+
+	Add it to the signup/sign-in/account edit pages. 
 
 Microposts model:
 	
