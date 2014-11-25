@@ -7,6 +7,10 @@ class Micropost < ActiveRecord::Base
 
 	# associations
 	belongs_to :user
+	has_many :mentions
+	has_many :mentioned_users, through: :mentions, source: :user
+
+
 
 	default_scope -> { order('created_at DESC') }
 

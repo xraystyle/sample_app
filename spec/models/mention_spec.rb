@@ -9,7 +9,6 @@ describe Mention do
 	let(:post) { second_user.microposts.create!(content: content) }
 	
 	before do
-		# post = second_user.microposts.create!(content: "I'm mentioning @#{first_user.username}")
 		@mention = Mention.where(user_id: first_user.id).where(micropost_id: post.id)
 	end
 
@@ -18,7 +17,7 @@ describe Mention do
 	its(:user) { should eq first_user }
 	its(:micropost) { should eq post }
 
-	it "should respond to these methods" do
+	describe "should respond to these methods" do
 		it { should respond_to(:user) }
 		it { should respond_to(:micropost) }
 		it { should respond_to(:user_id) }
@@ -38,14 +37,14 @@ describe Mention do
 
 	describe "creating a duplicate mention entry" do
 	  
+		before do
+			@mention.user_id = first_user.id
+			@mention.micropost_id = post.id
+			@micropost.save
+		end
+
 		it "should not save to the DB" do
 
-			before do
-				@mention.user_id = first_user.id
-				@mention.micropost_id = post.id
-				@micropost.save
-			end
-			
 			expect do
 			  Mention.create(user_id: first_user.id, micropost_id: post.id)
 			end.not_to change(Mention, :count)
