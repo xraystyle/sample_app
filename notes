@@ -36,4 +36,8 @@ Microposts model:
 	--------------|----------
 	       7      |    9
 
+
+ Checking the post content for mentions should be a before_save callback in the Micropost model. Don't fuck with the controller. 
+
+
 	

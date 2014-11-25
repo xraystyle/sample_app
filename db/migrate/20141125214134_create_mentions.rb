@@ -6,5 +6,7 @@ class CreateMentions < ActiveRecord::Migration
 
       t.timestamps
     end
+	add_index :mentions, :micropost_id, unique: true
+	add_index :mentions, :user_id, unique: true
   end
 end
