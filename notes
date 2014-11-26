@@ -2,6 +2,28 @@ Implement @ replies.
 
 Needed:
 
+@mentions need to show up in the feeds of the user mentioned, as well as anyone following that user.
+
+@mentions in microposts should appear as links to the profile of the mentioned user.
+
+refactor the way usernames appear on pages to be more twitter-like.
+
+instead of:
+
+Example User
+"example-user"
+
+it should be:
+
+Example User @example-user
+with @example-user in a lighter color font.
+
+Exception is on profile pages and logged in home page for the user being displayed in the sidebar. @username should still appear underneath the user's full name instead of in-line with a lighter colored font.
+
+-------------------------------------------------------------------------------------------------------------
+Done:  
+
+
 Users will require a unique username.
 
 Username format: a-z0-9, -, _, all lowercase.
@@ -41,19 +63,3 @@ Microposts model:
 
  Checking the post content for mentions should be a before_save callback in the Micropost model. Don't fuck with the controller. 
 
-gust2
-allison_oreilly3
-holly-gaylord4
-charley_robel5
-vanea6
-henry7
-liza8
-giles-nicolas9
-elvera-hagenes10
-pat11
-
-
-
-"@gust2 @allison_oreilly3 something @vanea6 ass."
-
-	
