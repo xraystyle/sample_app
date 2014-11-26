@@ -23,8 +23,13 @@ class Micropost < ActiveRecord::Base
 
 	def self.from_followed_or_mentions(user)
 		followed_user_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
-		mentioning_current_user = "SELECT micropost_id from mentions WHERE user_id = :user_id" 
-		where("user_id IN (#{followed_user_ids}) OR user_id = :user_id OR id IN (#{mentioning_current_user})", user_id: user)
+		mentioning_current_user = "SELECT micropost_id from mentions WHERE user_id = :user_id"
+		mentioning_followed_users = "SELECT micropost_id FROM mentions WHERE user_id IN (SELECT followed_id FROM relationships WHERE follower_id = :user_id)"
+		
+		where("user_id IN (#{followed_user_ids}) 
+				OR user_id = :user_id 
+				OR id IN (#{mentioning_current_user}) 
+				OR id IN(#{mentioning_followed_users})", user_id: user)
 	end
 
 
