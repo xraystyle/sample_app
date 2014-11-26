@@ -41,5 +41,19 @@ Microposts model:
 
  Checking the post content for mentions should be a before_save callback in the Micropost model. Don't fuck with the controller. 
 
+gust2
+allison_oreilly3
+holly-gaylord4
+charley_robel5
+vanea6
+henry7
+liza8
+giles-nicolas9
+elvera-hagenes10
+pat11
+
+
+
+"@gust2 @allison_oreilly3 something @vanea6 ass."
 
 	
