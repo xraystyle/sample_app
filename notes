@@ -19,6 +19,8 @@ Microposts model:
 
 	Finding an @:
 	regex should check for start of string, '@' sign, then keep matching until an invalid username char is hit.
+	regex: @([A-Za-z0-9_-]+) 
+	@usernames will be matched, match groups will contain just the username. Downcase it and use it to find the mentioned user.
 	
 	Will need an in_reply_to column
 	including_replies scope is recommended.
