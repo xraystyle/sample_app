@@ -10,6 +10,10 @@ During the process of completing this tutorial I've made a number of tweaks and 
 
 Also, I've implemented unique usernames and Twitter "@" style username mentions. All of this functionality was implemented via TDD, with the Rspec tests being written prior to the implementation. Test coverage for this new functionality is fairly good as well.
 
+Specifically, if a user creates a post with an "@username" mention, the user who was mentioned will see this post in their feed, even if they don't follow the post author. Also, anyone following the mentioned user will also see the post in their feed, regardless of whether or not they follow the post author. Following the mentioned user is enough to cause the post to appear in the feed. 
+
+Multiple mentions per post are supported and mentions appear as links to the mentioned user profile pages. The link tags in the posts don't count toward the 140 character limit and are generated dynamically when the posts are retrieved from the database.
+
 A live verson of this code can be seen here: https://rocky-bastion-6661.herokuapp.com/
 The code is running on Heroku's free tier, and as such, with only a single dyno, will be a bit slow. The site is populated with sample data from the lib/tasks/sample_data.rake task.
 
