@@ -2,10 +2,6 @@ Implement @ replies.
 
 Needed:
 
-@mentions need to show up in the feeds of the user mentioned, as well as anyone following that user.
-
-@mentions in microposts should appear as links to the profile of the mentioned user.
-
 refactor the way usernames appear on pages to be more twitter-like.
 
 instead of:
@@ -23,6 +19,9 @@ Exception is on profile pages and logged in home page for the user being display
 -------------------------------------------------------------------------------------------------------------
 Done:  
 
+@mentions in microposts should appear as links to the profile of the mentioned user.
+
+@mentions need to show up in the feeds of the user mentioned, as well as anyone following that user.
 
 Users will require a unique username.
 

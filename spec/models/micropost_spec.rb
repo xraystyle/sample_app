@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Micropost do
 
 	let(:user) { FactoryGirl.create(:user) }
+	let(:other_user) { FactoryGirl.create(:user) }
 	before do
 		# This code is not idiomatically correct.
 		@micropost = user.microposts.build(content: "Lorem Ipsum")
@@ -42,8 +43,29 @@ describe Micropost do
 		
 	end
 
+	describe "containing mentions" do
+		before do 
+			@micropost.content = "lorem ipsum @#{other_user.username}" 
+			@micropost.save
+			@micropost.reload
+		end
 
+		it "should convert the @ mentions to links to user profiles" do
+			
+			expect(@micropost.content).to eq("lorem ipsum <a href = \"/users/#{other_user.id}\">@#{other_user.username}</a>")
+
+		end
+	  
+	end
 
 
 
 end
+
+
+
+
+
+
+
+

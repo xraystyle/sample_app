@@ -16,7 +16,8 @@ class Micropost < ActiveRecord::Base
 
 	
 	# Callbacks
-	after_save { check_for_mentions }
+	after_save { create_mentions }
+	after_find { mentions_to_links }
 
 
 	# class methods:
@@ -33,29 +34,65 @@ class Micropost < ActiveRecord::Base
 	end
 
 
+
+	def check_for_mentions
+		mentions_regex = /@([A-Za-z0-9_-]+)/
+		mentioned_usernames = self.content.scan(mentions_regex)
+		if mentioned_usernames.any?
+			return mentioned_usernames
+		else
+			return false
+		end
+	end
+
+
 	private
 
 
-		def check_for_mentions
-			mentions_regex = /@([A-Za-z0-9_-]+)/
-			mentioned_usernames = self.content.scan(mentions_regex)
-			
-			mentioned_usernames.each do |username|
-				
-				create_mention(username)
+
+
+
+		def create_mentions
+
+			usernames = self.check_for_mentions
+
+			if usernames
+
+				usernames.each do |username|
+
+					user = User.where(username: username).first
+
+					if user
+						Mention.create!(user_id: user.id, micropost_id: self.id) unless user == self.user
+					end				
+
+				end
 
 			end
-
+			
 		end
 
 
-		def create_mention(username)
+		def mentions_to_links
 
-			user = User.where(username: username).first
+			usernames = self.check_for_mentions
 
-			if user
-				Mention.create!(user_id: user.id, micropost_id: self.id) unless user == self.user
+			if usernames
+
+				usernames.each do |username|
+
+					user = User.where(username: username).first
+
+					if user
+
+						self.content.gsub!("@#{user.username}", "<a href = \"/users/#{user.id}\">@#{user.username}</a>") 
+
+					end
+					
+				end
+
 			end
+
 			
 		end
 
