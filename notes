@@ -1,3 +1,8 @@
+
+
+-------------------------------------------------------------------------------------------------------------
+Done:  
+
 Implement @ replies.
 
 Needed:
@@ -15,9 +20,6 @@ Example User @example-user
 with @example-user in a lighter color font.
 
 Exception is on profile pages and logged in home page for the user being displayed in the sidebar. @username should still appear underneath the user's full name instead of in-line with a lighter colored font.
-
--------------------------------------------------------------------------------------------------------------
-Done:  
 
 @mentions in microposts should appear as links to the profile of the mentioned user.
 
@@ -81,9 +83,6 @@ SELECT "microposts".* FROM "microposts" WHERE (user_id IN (SELECT followed_id FR
 				OR user_id = 1 
 				OR id IN (SELECT micropost_id from mentions WHERE user_id = 1) 
 				OR id IN(SELECT micropost_id FROM mentions WHERE user_id IN (SELECT followed_id FROM relationships WHERE follower_id = 1))) ORDER BY created_at DESC
-
-
-"<a href = \"/users/4\">@gust2</a> <a href = \"/users/5\">@allison_oreilly3</a> something <a href = \"/users/8\">@vanea6</a> ass."
 
 
 
