@@ -16,7 +16,7 @@ module MicropostsHelper
 			zero_width_space = "&#8203;"
 			regex = /.{1,#{max_width}}/
 			
-			if text.match(/"\/users\/\d">@\w+<\/a>/) # don't break up parts of hrefs from mentions.
+			if text.match(/"\/users\/\d+">@\w+<\/a>/) # don't break up parts of hrefs from mentions.
 				text
 			else
 				(text.length < max_width) ? text : text.scan(regex).join(zero_width_space) 

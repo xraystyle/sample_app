@@ -35,10 +35,18 @@ end
 def make_microposts
 	users = User.all(limit: 6)
 
+	# Make posts without mentions.
 	50.times do
 		content = Faker::Lorem.sentence(5)
 		users.each { |user| user.microposts.create!(content: content) }
 	end
+
+	# make posts with mentions
+	50.times do
+		content = Faker::Lorem.sentence(3) + " @#{User.limit(1).order("RANDOM()").first.username} " + Faker::Lorem.sentence(2)
+		users.each { |user| user.microposts.create!(content: content) }
+	end
+
 end
 
 
