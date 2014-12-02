@@ -49,9 +49,6 @@ class Micropost < ActiveRecord::Base
 	private
 
 
-
-
-
 		def create_mentions
 
 			usernames = self.check_for_mentions
@@ -73,8 +70,9 @@ class Micropost < ActiveRecord::Base
 		end
 
 
-		def mentions_to_links
 
+		def mentions_to_links # make mentions into links to the mentioned user before returning the post.
+			
 			usernames = self.check_for_mentions
 
 			if usernames
@@ -84,15 +82,14 @@ class Micropost < ActiveRecord::Base
 					user = User.where(username: username).first
 
 					if user
-
-						self.content.gsub!("@#{user.username}", "<a href = \"/users/#{user.id}\">@#{user.username}</a>") 
+						mention = "@" + user.username
+						self.content.gsub!(mention, "<a href = \"/users/#{user.id}\">@#{user.username}</a>") 
 
 					end
 					
 				end
 
 			end
-
 			
 		end
 
