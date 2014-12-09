@@ -1,7 +1,14 @@
 
 // update the counter div element with the right integer.
-function updateCounter(element, count) {
-	element.innerHTML = 140 - count;
+function updateCounter(counter_div, count) {
+	counter_div.innerHTML = 140 - count;
+	if ((140 - count) <= 0) {
+		counter_div.parentElement.style.color = "red";
+		counter_div.style.color = "red";
+	}	else {
+		counter_div.parentElement.style.color = "";
+		counter_div.style.color = "";
+	}
 }
 
 
