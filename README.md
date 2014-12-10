@@ -14,6 +14,8 @@ Specifically, if a user creates a post with an "@username" mention, the user who
 
 Multiple mentions per post are supported and mentions appear as links to the mentioned user profile pages. The link tags in the posts don't count toward the 140 character limit and are generated dynamically when the posts are retrieved from the database.
 
+Also, I've implemented a Twitter-style character counter in the micropost composition window via Javascript. The character count turns red when it hits zero or below.
+
 A live verson of this code can be seen here: https://rocky-bastion-6661.herokuapp.com/
 The code is running on Heroku's free tier, and as such, with only a single dyno, will be a bit slow. The site is populated with sample data from the lib/tasks/sample_data.rake task.
 
