@@ -5,7 +5,7 @@ function updateCounter(counter_div, count) {
 	if ((140 - count) <= 0) {
 		counter_div.parentElement.style.color = "red";
 		counter_div.style.color = "red";
-	}	else {
+	} else {
 		counter_div.parentElement.style.color = "";
 		counter_div.style.color = "";
 	}
@@ -37,7 +37,3 @@ window.onload = function () {
 	};
 
 };
-
-
-
-
