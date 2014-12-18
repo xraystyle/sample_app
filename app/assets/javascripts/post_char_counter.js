@@ -30,7 +30,7 @@ window.onload = function () {
 		// When a key is released, count the chars.
 		inputBox.onkeyup = function() {
 			var stringLength = getLength(inputBox);
-			console.log(stringLength);
+			// console.log(stringLength);
 			updateCounter(counterDiv, stringLength); //Update the counter div with the current count.
 		};
 
